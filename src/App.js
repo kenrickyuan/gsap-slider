@@ -1,53 +1,44 @@
-import React, { useRef, useEffect } from 'react';
-import logo from './logo.svg';
-import './App.css';
-
-import { TweenMax, Power3 } from 'gsap';
+import React, { useRef, useEffect, useState } from "react";
+import { TweenMax, Power3 } from "gsap";
+import "./App.css";
 
 function App() {
-  let logoItem = useRef('hello');
+  let circle = useRef(null);
+  let circleRed = useRef(null);
+  let circleBlue = useRef(null);
+  let app = useRef(null);
 
-  let textItem = useRef('hello');
+  const [circleState, setState] = useState(false);
 
-  useEffect( () => {
-    console.log(logoItem);
-    TweenMax.to(
-      logoItem,
-      2,
-      {
-        opacity: 1,
-        y: -80,
-        ease: Power3.easeOut
-      }
-    )
+  const handleExpand = () => {
+    TweenMax.to(circleRed, 0.5, {width: 200, height: 200, ease: Power3.easeOut})
+    setState(true);
+  }
 
-    TweenMax.to(
-      textItem,
-      1.5,
-      {
-        opacity: 1,
-        y: -80,
-        ease: Power3.easeOut,
-        delay: 0.2
-      }
-    )
-  }, [])
+  const handleShrink = () => {
+    TweenMax.to(circleRed, 0.5, {width: 75, height: 75, ease: Power3.easeOut})
+    setState(false);
+  }
+
+  useEffect(() => {
+    TweenMax.to(app, 0, {css: {visibility: 'visible' }})
+    TweenMax.staggerFrom([circle, circleRed, circleBlue], 0.8, {opacity: 0, x: 80, ease: Power3.easeOut}, .4 )
+    // TweenMax.from(circle, 2, { opacity: 0, x: 100, ease: Power3.easeOut });
+    // TweenMax.from(circleRed, 2, { opacity: 0, x: 80, ease: Power3.easeOut, delay: .4 });
+    // TweenMax.from(circleBlue, 2, { opacity: 0, x: 80, ease: Power3.easeOut, delay: .7 });
+  }, []);
 
   return (
-    <div className="App">
+    <div className="App" ref={el => (app = el)}>
       <header className="App-header">
-        <img ref={ element => { logoItem = element } } src={logo} className="App-logo" alt="logo" />
-        <p ref={ element => { textItem = element } } className="p-logo">
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <div className="circle-container">
+          <div ref={el => (circle = el)} className="circle"></div>
+          <div
+            onClick={circleState !== true ? handleExpand : handleShrink}
+            ref={el => (circleRed = el)} className="circle red">
+          </div>
+          <div ref={el => (circleBlue = el)} className="circle blue"></div>
+        </div>
       </header>
     </div>
   );
