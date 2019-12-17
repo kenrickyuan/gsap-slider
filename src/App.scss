@@ -1,30 +1,22 @@
+/* colors corresponding to easywalker's blue and grey/gray */
+$bg-blue: #95B1B9;
+$bg-grey: #958F96;
+$bg-gray: #958F96;
+$circle-blue: #B4CAD0;
+$circle-grey: #706971;
+$circle-gray: #706971;
+
+@font-face {
+  font-family: 'Circular';
+  src: local('Circular'), url(./fonts/CircularStd-Medium.otf) format('opentype');
+}
+
+@font-face {
+    font-family: 'Circular';
+    font-weight: bold;
+    src: local('Circular'), url(./fonts/CircularStd-Bold.otf) format('opentype');
+}
+
 .App {
-  text-align: center;
-  visibility: hidden;
 }
 
-.App-header {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.circle {
-  width: 75px;
-  height: 75px;
-  border-radius: 100%;
-  background-color: #fdcf51;
-  margin: 50px;
-}
-
-.circle.red {
-  background-color: #fd5151;
-}
-
-.circle.blue {
-  background-color: #51a0fd;
-}
