@@ -22,7 +22,7 @@ function App() {
 
   useEffect(() => {
     TweenMax.to(app, 0, {css: {visibility: 'visible' }})
-    TweenMax.staggerFrom([circle, circleRed, circleBlue], 0.8, {opacity: 0, x: 80, ease: Power3.easeOut}, .4 )
+    TweenMax.staggerFrom([circle, circleRed, circleBlue], 1.5, {opacity: 0, x: 80, ease: Power3.easeOut}, .4 )
     // TweenMax.from(circle, 2, { opacity: 0, x: 100, ease: Power3.easeOut });
     // TweenMax.from(circleRed, 2, { opacity: 0, x: 80, ease: Power3.easeOut, delay: .4 });
     // TweenMax.from(circleBlue, 2, { opacity: 0, x: 80, ease: Power3.easeOut, delay: .7 });
