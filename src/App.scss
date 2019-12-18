@@ -74,7 +74,19 @@ $circle-gray: #706971;
   }
 }
 
-.stroller-subtitle {
+.stroller-subtitle1 {
+  z-index: 2;
+  position: absolute;
+  left: 26vw;
+  margin-top: 4vh;
+  width: 100%;
+  font-family: Circular;
+  font-size: 1.4vw;
+  letter-spacing: 0;
+  color: white;
+}
+
+.stroller-subtitle2 {
   z-index: 2;
   position: absolute;
   left: 26vw;

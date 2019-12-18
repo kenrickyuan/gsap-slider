@@ -32,26 +32,27 @@ function App() {
 
   // Stroller Image transition
 
-  const slideLeft = (rightIndex, leftIndex, duration) => {
-    TweenLite.set(strollers.children[rightIndex], { css: { left: "130vw", rotation: 26 } });
+  // Input index of left stroller, index of right stroller, animation duration
+  const slideImgLeft = (leftIndex, rightIndex, duration) => {
+    TweenLite.set(strollers.children[rightIndex], { css: { left: "100vw", rotation: 26 } });
     TweenLite.to(strollers.children[rightIndex], duration, {
       css: { left: "35vw", rotation: 0 },
       ease: Power3.easeInOut
     });
     TweenLite.to(strollers.children[leftIndex], duration, {
-      css: { left: "-130vw", rotation: 26 },
+      css: { left: "-100vw", rotation: 26 },
       ease: Power3.easeInOut
     });
   }
 
-  const slideRight = (rightIndex, leftIndex, duration) => {
-    TweenLite.set(strollers.children[leftIndex], { css: { left: "-130vw" } });
+  const slideImgRight = (leftIndex, rightIndex, duration) => {
+    TweenLite.set(strollers.children[leftIndex], { css: { left: "-100vw", rotation: 26 } });
     TweenLite.to(strollers.children[rightIndex], duration, {
-      css: { left: "130vw" },
+      css: { left: "100vw", rotation: 26  },
       ease: Power3.easeInOut
     });
     TweenLite.to(strollers.children[leftIndex], duration, {
-      css: { left: "30vw" },
+      css: { left: "35vw", rotation: 0  },
       ease: Power3.easeInOut
     });
   }
@@ -59,20 +60,20 @@ function App() {
   const nextSlide = () => {
     if (strollers.children[0].classList.contains("active")) {
       setState({ isActive1: false, isActive2: true });
-      slideLeft(1, 0, 1.5)
+      slideImgLeft(0, 1, 1.6)
     } else if (strollers.children[1].classList.contains("active")) {
       setState({ isActive1: true, isActive2: false });
-      slideLeft(0, 1, 1.5)
+      slideImgLeft(1, 0, 1.6)
     }
   };
 
   const previousSlide = () => {
     if (strollers.children[0].classList.contains("active")) {
       setState({ isActive1: false, isActive2: true });
-      slideRight(0, 1, 1.4)
+      slideImgRight(1, 0, 1.6)
     } else if (strollers.children[1].classList.contains("active")) {
       setState({ isActive1: true, isActive2: false });
-      slideRight(1, 0, 1.4)
+      slideImgRight(0, 1, 1.6)
     }
   };
 
@@ -87,7 +88,8 @@ function App() {
           <div className="stroller-name-container">
             <div className="stroller-name">
               <h1>{details[0].name}</h1>
-              <p className="stroller-subtitle">{details[0].subtitle}</p>
+              <p className={state.isActive1 ? "stroller-subtitle1 active" : "stroller-subtitle1"}>{details[0].subtitle}</p>
+              <p className={state.isActive2 ? "stroller-subtitle1 active" : "stroller-subtitle2"}>{details[1].subtitle}</p>
             </div>
           </div>
           <div ref={el => (strollers = el)} className="strollers">
