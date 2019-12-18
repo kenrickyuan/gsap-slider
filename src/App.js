@@ -33,13 +33,13 @@ function App() {
   // Stroller Image transition
 
   const slideLeft = (rightIndex, leftIndex, duration) => {
-    TweenLite.set(strollers.children[rightIndex], { css: { left: "130vw" } });
+    TweenLite.set(strollers.children[rightIndex], { css: { left: "130vw", rotation: 26 } });
     TweenLite.to(strollers.children[rightIndex], duration, {
-      css: { left: "30vw" },
+      css: { left: "35vw", rotation: 0 },
       ease: Power3.easeInOut
     });
     TweenLite.to(strollers.children[leftIndex], duration, {
-      css: { left: "-130vw" },
+      css: { left: "-130vw", rotation: 26 },
       ease: Power3.easeInOut
     });
   }
@@ -59,10 +59,10 @@ function App() {
   const nextSlide = () => {
     if (strollers.children[0].classList.contains("active")) {
       setState({ isActive1: false, isActive2: true });
-      slideLeft(1, 0, 1.4)
+      slideLeft(1, 0, 1.5)
     } else if (strollers.children[1].classList.contains("active")) {
       setState({ isActive1: true, isActive2: false });
-      slideLeft(0, 1, 1.4)
+      slideLeft(0, 1, 1.5)
     }
   };
 
@@ -84,6 +84,12 @@ function App() {
         </div>
 
         <div className="inner">
+          <div className="stroller-name-container">
+            <div className="stroller-name">
+              <h1>{details[0].name}</h1>
+              <p className="stroller-subtitle">{details[0].subtitle}</p>
+            </div>
+          </div>
           <div ref={el => (strollers = el)} className="strollers">
             <img
               className={state.isActive1 ? "stroller1 active" : "stroller1"}

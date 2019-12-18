@@ -1,20 +1,20 @@
 /* colors corresponding to easywalker's blue and grey/gray */
-$bg-blue: #95B1B9;
-$bg-grey: #958F96;
-$bg-gray: #958F96;
-$circle-blue: #B4CAD0;
+$bg-blue: #95b1b9;
+$bg-grey: #958f96;
+$bg-gray: #958f96;
+$circle-blue: #b4cad0;
 $circle-grey: #706971;
 $circle-gray: #706971;
 
 @font-face {
-  font-family: 'Circular';
-  src: local('Circular'), url(./fonts/CircularStd-Medium.otf) format('opentype');
+  font-family: "Circular";
+  src: local("Circular"), url(./fonts/CircularStd-Medium.otf) format("opentype");
 }
 
 @font-face {
-    font-family: 'Circular';
-    font-weight: bold;
-    src: local('Circular'), url(./fonts/CircularStd-Bold.otf) format('opentype');
+  font-family: "Circular";
+  font-weight: bold;
+  src: local("Circular"), url(./fonts/CircularStd-Bold.otf) format("opentype");
 }
 
 .App {
@@ -29,7 +29,6 @@ $circle-gray: #706971;
 .arrows {
   position: absolute;
   display: flex;
-  /*width: 100px;*/
   align-items: center;
   justify-content: center;
   bottom: 0;
@@ -38,6 +37,7 @@ $circle-gray: #706971;
   border-radius: 8px;
   transition: 0.3s ease-in-out;
   transform: rotate(180deg);
+  z-index: 10;
   &:hover {
     box-shadow: 0px 0px 30px rgba(0, 0, 80, 0.05);
   }
@@ -47,21 +47,60 @@ $circle-gray: #706971;
   }
 }
 
+.inner {
+  display: flex;
+  .stroller-name-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+  }
+}
+
+.stroller-name {
+  /*height: 100vh;*/
+  /*width: 100vw;*/
+  margin-bottom: 14vw;
+  /*display: flex;*/
+  /*justify-content: center;*/
+  /*align-items: center;*/
+  z-index: 2;
+  h1 {
+    font-family: Circular;
+    font-size: 18.75vw;
+    font-weight: bold;
+    letter-spacing: -0.05em;
+    color: white;
+  }
+}
+
+.stroller-subtitle {
+  z-index: 2;
+  position: absolute;
+  left: 26vw;
+  margin-top: 4vh;
+  width: 100%;
+  font-family: Circular;
+  font-size: 1.4vw;
+  letter-spacing: 0;
+  color: white;
+}
 
 .strollers {
   height: 100vh;
   display: flex;
   align-items: center;
+  z-index: 5;
 }
 
 .stroller1 {
-  width: 30vw;
+  width: 34vw;
   position: absolute;
-  left: 30vw;
+  left: 36vw;
 }
 
 .stroller2 {
-  width: 30vw;
+  width: 34vw;
   position: absolute;
   left: 130vw;
 }
@@ -72,4 +111,3 @@ $circle-gray: #706971;
   width: 100%;
   left: 100vw;
 }
-
