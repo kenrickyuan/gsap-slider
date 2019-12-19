@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useState } from "react";
 import { TweenLite, Power3 } from "gsap";
 import leftArrowImg from "./assets/arrow-forward.svg";
 import rightArrowImg from "./assets/arrow-forward.svg";
@@ -9,12 +9,14 @@ const details = [
   {
     name: "Buggy XS",
     subtitle: "Compact on the go",
-    image: `${require("./assets/buggyxs.png")}`
+    image: `${require("./assets/buggyxs.png")}`,
+    color: "#95b1b9"
   },
   {
     name: "Harvey²",
     subtitle: "All Terrain",
-    image: `${require("./assets/harvey2.png")}`
+    image: `${require("./assets/harvey2.png")}`,
+    color: "#958f96"
   }
 ];
 
@@ -121,27 +123,16 @@ function App() {
   };
 
   // Background Color transition
-  const blueToGrey = duration => {
+  const colorChange = (targetColor, duration) => {
     TweenLite.to(container, duration, {
-      css: { "background-color": "#958f96" },
-      ease: Power3.easeInOut
-    });
-  };
-
-  const greyToBlue = duration => {
-    TweenLite.to(container, duration, {
-      css: { "background-color": "#95b1b9" },
+      css: { "background-color": targetColor },
       ease: Power3.easeInOut
     });
   };
 
   // Heading Changing transition (for testing purposes)
-  const buggyToHarvey = () => {
-    heading.innerHTML = "Harvey²";
-  };
-
-  const harveyToBuggy = () => {
-    heading.innerHTML = "Buggy XS";
+  const headingChange = targetHeading => {
+    heading.innerHTML = targetHeading;
   };
 
   // Temporary solution to prevent animation bugs when clicking arrows before GSAP transforms are completely over
@@ -160,16 +151,16 @@ function App() {
       setState({ isActive1: false, isActive2: true });
       slideImgLeft(0, 1, 38, 36, 65, 10, 1.6);
       slideSubLeft(0, 1, 37, 49, 26, 1.6);
-      blueToGrey(1.6)
-      buggyToHarvey();
+      colorChange(details[1].color, 1.6);
+      headingChange(details[1].name);
       // setTimeout(enableArrow, 1600);
     } else if (strollers.children[1].classList.contains("active")) {
       // disableArrow(rightArrow);
       setState({ isActive1: true, isActive2: false });
       slideImgLeft(1, 0, 36, 38, 65, 10, 1.6);
       slideSubLeft(1, 0, 26, "", 37, 1.6);
-      greyToBlue(1.6);
-      harveyToBuggy();
+      colorChange(details[0].color, 1.6);
+      headingChange(details[0].name);
       // setTimeout(enableArrow, 1600);
     }
   };
@@ -179,14 +170,14 @@ function App() {
       setState({ isActive1: false, isActive2: true });
       slideImgRight(0, 1, 38, 36, 65, 10, 1.6);
       slideSubRight(0, 1, 37, 49, 26, 1.6);
-      blueToGrey(1.6);
-      buggyToHarvey();
+      colorChange(details[1].color, 1.6);
+      headingChange(details[1].name);
     } else if (strollers.children[1].classList.contains("active")) {
       setState({ isActive1: true, isActive2: false });
       slideImgRight(1, 0, 36, 38, 65, 10, 1.6);
       slideSubRight(1, 0, 26, "", 37, 1.6);
-      greyToBlue(1.6);
-      harveyToBuggy();
+      colorChange(details[0].color, 1.6);
+      headingChange(details[0].name);
     }
   };
 
@@ -212,8 +203,8 @@ function App() {
                 <p
                   className={
                     state.isActive1
-                      ? "stroller-subtitle1 active"
-                      : "stroller-subtitle1"
+                      ? "stroller-subtitle active"
+                      : "stroller-subtitle"
                   }
                 >
                   {details[0].subtitle}
@@ -221,8 +212,8 @@ function App() {
                 <p
                   className={
                     state.isActive2
-                      ? "stroller-subtitle1 active"
-                      : "stroller-subtitle2"
+                      ? "stroller-subtitle stroller-subtitle2 active"
+                      : "stroller-subtitle stroller-subtitle2"
                   }
                 >
                   {details[1].subtitle}
@@ -232,12 +223,12 @@ function App() {
           </div>
           <div ref={el => (strollers = el)} className="strollers">
             <img
-              className={state.isActive1 ? "stroller1 active" : "stroller1"}
+              className={state.isActive1 ? "stroller active" : "stroller"}
               src={details[0].image}
               alt={details[0].name}
             />
             <img
-              className={state.isActive2 ? "stroller2 active" : "stroller2"}
+              className={state.isActive2 ? "stroller stroller2 active" : "stroller stroller2"}
               src={details[1].image}
               alt={details[1].name}
             />

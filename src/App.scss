@@ -81,7 +81,7 @@ $circle-gray: #706971;
   background-color: rgb(175, 203, 209);
 }
 
-.stroller-subtitle1 {
+.stroller-subtitle {
   z-index: 2;
   position: absolute;
   left: 26vw;
@@ -91,19 +91,10 @@ $circle-gray: #706971;
   font-size: 1.4vw;
   letter-spacing: 0;
   color: white;
-}
-
-.stroller-subtitle2 {
-  z-index: 2;
-  position: absolute;
-  left: 100vw;
-  top: 49vh;
-  margin-top: 4vh;
-  width: 100%;
-  font-family: Circular;
-  font-size: 1.4vw;
-  letter-spacing: 0;
-  color: white;
+  &.stroller-subtitle2 {
+    left: 100vw;
+    top: 49vh;
+  }
 }
 
 .strollers {
@@ -113,24 +104,14 @@ $circle-gray: #706971;
   z-index: 5;
 }
 
-.stroller1 {
+.stroller {
   width: 34vw;
   position: absolute;
   left: 36vw;
   transform: rotate(10deg);
-}
-
-.stroller2 {
-  width: 34vw;
-  position: absolute;
-  left: 130vw;
-}
-
-.stroller-slide2 {
-  position: absolute;
-  bottom: 10%;
-  width: 100%;
-  left: 100vw;
+  &.stroller2 {
+    left: 130vw;
+  }
 }
 
 .disabled {
