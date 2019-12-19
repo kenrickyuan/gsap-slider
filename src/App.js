@@ -7,7 +7,8 @@ import "reset-css";
 const details = [
   {
     name: "Buggy XS",
-    nameLeft: 0, // only input number, it will be in vw
+    nameLeft: 12, // only input number, it will be in vw
+    nameTop: -2,
     subtitle: "Compact on the go",
     subLeft: 28, // only input number, it will be in vw
     img: `${require("./assets/buggyxs.png")}`,
@@ -20,7 +21,8 @@ const details = [
   },
   {
     name: "Harvey²",
-    nameLeft: 6, // only input number, it will be in vw
+    nameLeft: 18, // only input number, it will be in vw
+    nameTop: -21,
     subtitle: "All Terrain",
     subLeft: 37, // only input number, it will be in vw
     img: `${require("./assets/harvey2.png")}`,
@@ -39,8 +41,6 @@ function App() {
   let subtitles = useRef(null);
   let headings = useRef(null);
   let shape = useRef(null);
-  // let leftArrow = useRef(null);
-  // let rightArrow = useRef(null);
 
   const [state, setState] = useState({
     isActive1: true,
@@ -73,6 +73,35 @@ function App() {
     });
     TweenLite.to(strollers.children[startIndex], duration, {
       css: { left: `${100 + details[startIndex].imgLeft}vw`, rotation: startRotation },
+      ease: Power3.easeInOut
+    });
+  };
+
+  // Heading transition
+  const slideHeadLeft = (startIndex, endIndex, duration) => {
+    TweenLite.set(headings.children[endIndex], {
+      css: { left: `${100 + details[endIndex].nameLeft}vw`, top: `${20 + details[endIndex].nameTop}vw` }
+    });
+    TweenLite.to(headings.children[endIndex], duration, {
+      css: { left: `${details[endIndex].nameLeft}vw`, top: `${details[endIndex].nameTop}vw` },
+      ease: Power3.easeInOut
+    });
+    TweenLite.to(headings.children[startIndex], duration, {
+      css: { left: `${-100 - details[startIndex].nameLeft}vw`, top: `${-20 + details[startIndex].nameTop}vw` },
+      ease: Power3.easeInOut
+    });
+  };
+
+  const slideHeadRight = (startIndex, endIndex, duration) => {
+    TweenLite.set(headings.children[endIndex], {
+      css: { left: `${-100 - details[endIndex].nameLeft}vw`, top: `${-20 + details[endIndex].nameTop}vw` }
+    });
+    TweenLite.to(headings.children[endIndex], duration, {
+      css: { left: `${details[endIndex].nameLeft}vw`, top: `${details[endIndex].nameTop}vw` },
+      ease: Power3.easeInOut
+    });
+    TweenLite.to(headings.children[startIndex], duration, {
+      css: { left: `${100 + details[startIndex].nameLeft}vw`, top: `${20 + details[startIndex].nameTop}vw` },
       ease: Power3.easeInOut
     });
   };
@@ -124,35 +153,6 @@ function App() {
         "border-radius": details[targetIndex].shapeBorderRadius,
         rotation: `+= ${targetRotation}`
       },
-      ease: Power3.easeInOut
-    });
-  };
-
-  // Heading transition
-  const slideHeadLeft = (startIndex, endIndex, duration) => {
-    TweenLite.set(headings.children[endIndex], {
-      css: { left: `${100 + details[endIndex].nameLeft}vw` }
-    });
-    TweenLite.to(headings.children[endIndex], duration, {
-      css: { left: `${details[endIndex].nameLeft}vw` },
-      ease: Power3.easeInOut
-    });
-    TweenLite.to(headings.children[startIndex], duration, {
-      css: { left: `${-100 - details[startIndex].nameLeft}vw` },
-      ease: Power3.easeInOut
-    });
-  };
-
-  const slideHeadRight = (startIndex, endIndex, duration) => {
-    TweenLite.set(headings.children[endIndex], {
-      css: { left: `${-100 - details[endIndex].nameLeft}vw` }
-    });
-    TweenLite.to(headings.children[endIndex], duration, {
-      css: { left: `${details[endIndex].nameLeft}vw` },
-      ease: Power3.easeInOut
-    });
-    TweenLite.to(headings.children[startIndex], duration, {
-      css: { left: `${100 + details[startIndex].nameLeft}vw` },
       ease: Power3.easeInOut
     });
   };

@@ -58,7 +58,7 @@ $circle-gray: #706971;
 
 .headings {
   height: 18vw;
-  width: 77vw;
+  width: 100vw;
   margin-bottom: 14vw;
   overflow: hidden;
   z-index: 2;
@@ -66,7 +66,7 @@ $circle-gray: #706971;
 
 .heading {
   position: relative;
-  left: 0vw;
+  left: 12vw;
   top: -2vw;
   font-family: Circular;
   font-size: 18.75vw;
@@ -74,7 +74,7 @@ $circle-gray: #706971;
   letter-spacing: -0.05em;
   color: white;
   &.heading2 {
-    left: 106vw;
+    left: 118vw;
     top: -21vw;
   }
 }
