@@ -56,20 +56,26 @@ $circle-gray: #706971;
   width: 100vw;
 }
 
-.stroller-name {
-  /*height: 100vh;*/
-  /*width: 100vw;*/
+.headings {
+  height: 18vw;
+  width: 77vw;
   margin-bottom: 14vw;
-  /*display: flex;*/
-  /*justify-content: center;*/
-  /*align-items: center;*/
+  overflow: hidden;
   z-index: 2;
-  h1 {
-    font-family: Circular;
-    font-size: 18.75vw;
-    font-weight: bold;
-    letter-spacing: -0.05em;
-    color: white;
+}
+
+.heading {
+  position: relative;
+  left: 0vw;
+  top: -2vw;
+  font-family: Circular;
+  font-size: 18.75vw;
+  font-weight: bold;
+  letter-spacing: -0.05em;
+  color: white;
+  &.heading2 {
+    left: 106vw;
+    top: -21vw;
   }
 }
 
@@ -97,7 +103,7 @@ $circle-gray: #706971;
   z-index: 2;
   position: absolute;
   left: 28vw;
-  margin-top: 4vh;
+  top: 58vh;
   width: 100%;
   font-family: Circular;
   font-size: 1.4vw;
@@ -110,7 +116,7 @@ $circle-gray: #706971;
 }
 
 .strollers {
-  height: 100vh;
+  /*height: 100vh;*/
   display: flex;
   align-items: center;
   z-index: 5;
@@ -122,7 +128,7 @@ $circle-gray: #706971;
   left: 36vw;
   transform: rotate(10deg);
   &.stroller2 {
-    left: 130vw;
+    left: 138vw;
   }
 }
 
