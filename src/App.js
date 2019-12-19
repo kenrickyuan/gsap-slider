@@ -10,14 +10,18 @@ const details = [
     subtitle: "Compact on the go",
     image: `${require("./assets/buggyxs.png")}`,
     bgColor: "#95b1b9",
-    shapeColor: "#b4cad0"
+    shapeColor: "#b4cad0",
+    shapeWidth: "51vw",
+    shapeHeight: "35vw"
   },
   {
     name: "Harvey²",
     subtitle: "All Terrain",
     image: `${require("./assets/harvey2.png")}`,
     bgColor: "#958f96",
-    shapeColor: "#706971"
+    shapeColor: "#706971",
+    shapeWidth: "44vw",
+    shapeHeight: "44vw"
   }
 ];
 
@@ -133,9 +137,9 @@ function App() {
   };
 
   // Shape transition
-  const shapeChange = (targetBorderRadius, targetRotation, duration) => {
+  const shapeChange = (targetColor, targetWidth, targetHeight, targetBorderRadius, targetRotation, duration) => {
     TweenLite.to(shape, duration, {
-      css: { "border-radius": targetBorderRadius, rotation: `+= ${targetRotation}`},
+      css: { "background-color": targetColor, "width":targetWidth, "height":targetHeight, "border-radius": targetBorderRadius, rotation: `+= ${targetRotation}`},
       ease: Power3.easeInOut
     });
   };
@@ -163,7 +167,7 @@ function App() {
       slideSubLeft(0, 1, 37, 49, 26, 1.6);
       colorChange(details[1].bgColor, 1.6);
       headingChange(details[1].name);
-      shapeChange("50%", -90, 1.6);
+      shapeChange(details[1].shapeColor, details[1].shapeWidth, details[1].shapeHeight, "50%", -90, 1.6);
       // setTimeout(enableArrow, 1600);
     } else if (strollers.children[1].classList.contains("active")) {
       // disableArrow(rightArrow);
@@ -172,7 +176,7 @@ function App() {
       slideSubLeft(1, 0, 26, "", 37, 1.6);
       colorChange(details[0].bgColor, 1.6);
       headingChange(details[0].name);
-      shapeChange("0%", -90, 1.6);
+      shapeChange(details[0].shapeColor, details[0].shapeWidth, details[0].shapeHeight, "0%", -90, 1.6);
       // setTimeout(enableArrow, 1600);
     }
   };
@@ -184,12 +188,14 @@ function App() {
       slideSubRight(0, 1, 37, 49, 26, 1.6);
       colorChange(details[1].bgColor, 1.6);
       headingChange(details[1].name);
+      shapeChange(details[1].shapeColor, details[1].shapeWidth, details[1].shapeHeight, "50%", 90, 1.6);
     } else if (strollers.children[1].classList.contains("active")) {
       setState({ isActive1: true, isActive2: false });
       slideImgRight(1, 0, 36, 38, 65, 10, 1.6);
       slideSubRight(1, 0, 26, "", 37, 1.6);
       colorChange(details[0].bgColor, 1.6);
       headingChange(details[0].name);
+      shapeChange(details[0].shapeColor, details[0].shapeWidth, details[0].shapeHeight, "0%", 90, 1.6);
     }
   };
 
