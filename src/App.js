@@ -21,6 +21,8 @@ const details = [
 function App() {
   let strollers = useRef(null);
   let container = useRef(null);
+  let subtitles = useRef(null);
+  let heading = useRef(null);
 
   const [state, setState] = useState({
     isActive1: true,
@@ -28,42 +30,97 @@ function App() {
   });
 
   useEffect(() => {
-    console.log(strollers.children);
+    console.log(heading.innerHTML);
   }, []);
 
   // Stroller Image transition
-
-  // Input index of left stroller, index of right stroller, animation duration
-  const slideImgLeft = (leftIndex, rightIndex, duration) => {
+  // Input left stroller's index, right stroller's index, animation duration
+  const slideImgLeft = (
+    leftIndex,
+    rightIndex,
+    destination,
+    startRotation,
+    endRotation,
+    duration
+  ) => {
     TweenLite.set(strollers.children[rightIndex], {
-      css: { left: "100vw", rotation: 26 }
+      css: { left: `${100 + destination}vw`, rotation: startRotation }
     });
     TweenLite.to(strollers.children[rightIndex], duration, {
-      css: { left: "35vw", rotation: 0 },
+      css: { left: `${destination}vw`, rotation: endRotation },
       ease: Power3.easeInOut
     });
     TweenLite.to(strollers.children[leftIndex], duration, {
-      css: { left: "-100vw", rotation: 26 },
+      css: { left: `${-100 - destination}vw`, rotation: startRotation + 22 },
       ease: Power3.easeInOut
     });
   };
 
-  const slideImgRight = (leftIndex, rightIndex, duration) => {
+  const slideImgRight = (
+    leftIndex,
+    rightIndex,
+    destination,
+    startRotation,
+    endRotation,
+    duration
+  ) => {
     TweenLite.set(strollers.children[leftIndex], {
-      css: { left: "-100vw", rotation: 26 }
-    });
-    TweenLite.to(strollers.children[rightIndex], duration, {
-      css: { left: "100vw", rotation: 26 },
-      ease: Power3.easeInOut
+      css: { left: `${-100 - destination}vw`, rotation: startRotation + 22 }
     });
     TweenLite.to(strollers.children[leftIndex], duration, {
-      css: { left: "35vw", rotation: 0 },
+      css: { left: `${destination}vw`, rotation: endRotation },
+      ease: Power3.easeInOut
+    });
+    TweenLite.to(strollers.children[rightIndex], duration, {
+      css: { left: `${100 + destination}vw`, rotation: startRotation },
+      ease: Power3.easeInOut
+    });
+  };
+
+  // Subtitle transition
+  const slideSubLeft = (
+    leftIndex,
+    rightIndex,
+    newLeft,
+    newTop,
+    currentLeft,
+    duration
+  ) => {
+    TweenLite.set(subtitles.children[rightIndex], {
+      css: { left: `${100 + newLeft}vw`, top: `${newTop}vh` }
+    });
+    TweenLite.to(subtitles.children[rightIndex], duration, {
+      css: { left: `${newLeft}vw` },
+      ease: Power3.easeInOut
+    });
+    TweenLite.to(subtitles.children[leftIndex], duration, {
+      css: { left: `${-100 - currentLeft}vw` },
+      ease: Power3.easeInOut
+    });
+  };
+
+  const slideSubRight = (
+    leftIndex,
+    rightIndex,
+    newLeft,
+    newTop,
+    currentLeft,
+    duration
+  ) => {
+    TweenLite.set(subtitles.children[leftIndex], {
+      css: { left: `${-100 - newLeft}vw`, top: `${newTop}vh` }
+    });
+    TweenLite.to(subtitles.children[leftIndex], duration, {
+      css: { left: `${newLeft}vw` },
+      ease: Power3.easeInOut
+    });
+    TweenLite.to(subtitles.children[rightIndex], duration, {
+      css: { left: `${100 + currentLeft}vw` },
       ease: Power3.easeInOut
     });
   };
 
   // Background Color transition
-
   const blueToGrey = duration => {
     TweenLite.to(container, duration, {
       css: { "background-color": "#958f96" },
@@ -78,27 +135,44 @@ function App() {
     });
   };
 
+  // Heading Changing transition (for testing purposes)
+  const buggyToHarvey = () => {
+    heading.innerHTML = "Harvey²";
+  };
 
+  const harveyToBuggy = () => {
+    heading.innerHTML = "Buggy XS";
+  };
 
   const nextSlide = () => {
     if (strollers.children[0].classList.contains("active")) {
       setState({ isActive1: false, isActive2: true });
-      slideImgLeft(0, 1, 1.6);
+      slideImgLeft(0, 1, 38, 22, 10, 1.6);
+      slideSubLeft(0, 1, 37, 49, 26, 1.6);
       blueToGrey(1.6);
+      buggyToHarvey();
     } else if (strollers.children[1].classList.contains("active")) {
       setState({ isActive1: true, isActive2: false });
-      slideImgLeft(1, 0, 1.6);
+      slideImgLeft(1, 0, 36, 22, 10, 1.6);
+      slideSubLeft(1, 0, 26, "", 37, 1.6);
       greyToBlue(1.6);
+      harveyToBuggy();
     }
   };
 
   const previousSlide = () => {
     if (strollers.children[0].classList.contains("active")) {
       setState({ isActive1: false, isActive2: true });
-      slideImgRight(1, 0, 1.6);
+      slideImgRight(1, 0, 38, 22, 10, 1.6);
+      slideSubRight(1, 0, 37, 49, 26, 1.6);
+      blueToGrey(1.6);
+      buggyToHarvey();
     } else if (strollers.children[1].classList.contains("active")) {
       setState({ isActive1: true, isActive2: false });
-      slideImgRight(0, 1, 1.6);
+      slideImgRight(0, 1, 36, 22, 10, 1.6);
+      slideSubRight(0, 1, 26, '', 37, 1.6);
+      greyToBlue(1.6);
+      harveyToBuggy();
     }
   };
 
@@ -110,27 +184,32 @@ function App() {
         </div>
 
         <div className="inner">
+          <div className="shape-container">
+            <span className="shape"></span>
+          </div>
           <div className="stroller-name-container">
             <div className="stroller-name">
-              <h1>{details[0].name}</h1>
-              <p
-                className={
-                  state.isActive1
-                    ? "stroller-subtitle1 active"
-                    : "stroller-subtitle1"
-                }
-              >
-                {details[0].subtitle}
-              </p>
-              <p
-                className={
-                  state.isActive2
-                    ? "stroller-subtitle1 active"
-                    : "stroller-subtitle2"
-                }
-              >
-                {details[1].subtitle}
-              </p>
+              <h1 ref={el => (heading = el)}>{details[0].name}</h1>
+              <div ref={el => (subtitles = el)} className="subtitles">
+                <p
+                  className={
+                    state.isActive1
+                      ? "stroller-subtitle1 active"
+                      : "stroller-subtitle1"
+                  }
+                >
+                  {details[0].subtitle}
+                </p>
+                <p
+                  className={
+                    state.isActive2
+                      ? "stroller-subtitle1 active"
+                      : "stroller-subtitle2"
+                  }
+                >
+                  {details[1].subtitle}
+                </p>
+              </div>
             </div>
           </div>
           <div ref={el => (strollers = el)} className="strollers">

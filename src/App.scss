@@ -24,6 +24,7 @@ $circle-gray: #706971;
   background-color: $bg-blue;
   height: 100vh;
   position: relative;
+  overflow: hidden;
 }
 
 .arrows {
@@ -74,6 +75,12 @@ $circle-gray: #706971;
   }
 }
 
+.shape {
+  width: 46vw;
+  height: 46vw;
+  background-color: rgb(175, 203, 209);
+}
+
 .stroller-subtitle1 {
   z-index: 2;
   position: absolute;
@@ -89,7 +96,8 @@ $circle-gray: #706971;
 .stroller-subtitle2 {
   z-index: 2;
   position: absolute;
-  left: 26vw;
+  left: 100vw;
+  top: 49vh;
   margin-top: 4vh;
   width: 100%;
   font-family: Circular;
