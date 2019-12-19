@@ -143,40 +143,35 @@ function App() {
     });
   };
 
-  // // Heading Changing transition (for testing purposes)
-  // const headingChange = targetHeading => {
-  //   heading.innerHTML = targetHeading;
-  // };
-
-  // // Temporary solution to prevent animation bugs when clicking arrows before GSAP transforms are completely over
-  // const disableArrow = arrow => {
-  //   arrow.classList.add("disabled");
-  // };
-
-  // const enableArrow = () => {
-  //   console.log(rightArrow);
-  //   // rightArrow.classList.remove("disabled");
-  // };
+  const slideHeadRight = (startIndex, endIndex, duration) => {
+    TweenLite.set(headings.children[endIndex], {
+      css: { left: `${-100 - details[endIndex].nameLeft}vw` }
+    });
+    TweenLite.to(headings.children[endIndex], duration, {
+      css: { left: `${details[endIndex].nameLeft}vw` },
+      ease: Power3.easeInOut
+    });
+    TweenLite.to(headings.children[startIndex], duration, {
+      css: { left: `${100 + details[startIndex].nameLeft}vw` },
+      ease: Power3.easeInOut
+    });
+  };
 
   const nextSlide = () => {
     if (strollers.children[0].classList.contains("active")) {
-      // disableArrow(rightArrow);
       setState({ isActive1: false, isActive2: true });
       slideImgLeft(0, 1, 65, 10, 1.6);
       slideHeadLeft(0, 1, 1.6);
       slideSubLeft(0, 1, 1.6);
       colorChange(details[1].bgColor, 1.6);
       shapeChange(1, -90, 1.6);
-      // setTimeout(enableArrow, 1600);
     } else if (strollers.children[1].classList.contains("active")) {
-      // disableArrow(rightArrow);
       setState({ isActive1: true, isActive2: false });
       slideImgLeft(1, 0, 65, 10, 1.6);
       slideHeadLeft(1, 0, 1.6);
       slideSubLeft(1, 0, 1.6);
       colorChange(details[0].bgColor, 1.6);
       shapeChange(0, -90, 1.6);
-      // setTimeout(enableArrow, 1600);
     }
   };
 
@@ -184,16 +179,16 @@ function App() {
     if (strollers.children[0].classList.contains("active")) {
       setState({ isActive1: false, isActive2: true });
       slideImgRight(0, 1, 65, 10, 1.6);
+      slideHeadRight(0, 1, 1.6);
       slideSubRight(0, 1, 1.6);
       colorChange(details[1].bgColor, 1.6);
-      // headingChange(details[1].name);
       shapeChange(1, 90, 1.6);
     } else if (strollers.children[1].classList.contains("active")) {
       setState({ isActive1: true, isActive2: false });
       slideImgRight(1, 0, 65, 10, 1.6);
+      slideHeadRight(1, 0, 1.6);
       slideSubRight(1, 0, 1.6);
       colorChange(details[0].bgColor, 1.6);
-      // headingChange(details[0].name);
       shapeChange(0, 90, 1.6);
     }
   };
