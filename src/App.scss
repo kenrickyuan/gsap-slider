@@ -132,3 +132,7 @@ $circle-gray: #706971;
   width: 100%;
   left: 100vw;
 }
+
+.disabled {
+  pointer-events: none;
+}

@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import { TweenLite, Power3 } from "gsap";
-import leftArrow from "./assets/arrow-forward.svg";
-import rightArrow from "./assets/arrow-forward.svg";
+import leftArrowImg from "./assets/arrow-forward.svg";
+import rightArrowImg from "./assets/arrow-forward.svg";
 import "./App.scss";
 import "reset-css";
 
@@ -23,15 +23,13 @@ function App() {
   let container = useRef(null);
   let subtitles = useRef(null);
   let heading = useRef(null);
+  let leftArrow = useRef(null);
+  let rightArrow = useRef(null);
 
   const [state, setState] = useState({
     isActive1: true,
     isActive2: false
   });
-
-  useEffect(() => {
-    console.log(heading.innerHTML);
-  }, []);
 
   // Stroller Image transition
   // Input starting stroller's index, ending stroller's index, starting stroller's left, ending stroller's left, starting rotation, ending rotation, duration
@@ -52,7 +50,7 @@ function App() {
       ease: Power3.easeInOut
     });
     TweenLite.to(strollers.children[startIndex], duration, {
-      css: { left: `${-100 - startLeft}vw`, rotation: startRotation + 22 },
+      css: { left: `${-100 - startLeft}vw`, rotation: startRotation },
       ease: Power3.easeInOut
     });
   };
@@ -67,7 +65,7 @@ function App() {
     duration
   ) => {
     TweenLite.set(strollers.children[endIndex], {
-      css: { left: `${-100 - endLeft}vw`, rotation: startRotation + 22 }
+      css: { left: `${-100 - endLeft}vw`, rotation: startRotation }
     });
     TweenLite.to(strollers.children[endIndex], duration, {
       css: { left: `${endLeft}vw`, rotation: endRotation },
@@ -146,33 +144,47 @@ function App() {
     heading.innerHTML = "Buggy XS";
   };
 
+  // Temporary solution to prevent animation bugs when clicking arrows before GSAP transforms are completely over
+  const disableArrow = arrow => {
+    arrow.classList.add("disabled");
+  };
+
+  const enableArrow = () => {
+    console.log(rightArrow);
+    // rightArrow.classList.remove("disabled");
+  };
+
   const nextSlide = () => {
     if (strollers.children[0].classList.contains("active")) {
+      // disableArrow(rightArrow);
       setState({ isActive1: false, isActive2: true });
-      slideImgLeft(0, 1, 38, 36, 22, 10, 1.6);
+      slideImgLeft(0, 1, 38, 36, 65, 10, 1.6);
       slideSubLeft(0, 1, 37, 49, 26, 1.6);
-      blueToGrey(1.6);
+      blueToGrey(1.6)
       buggyToHarvey();
+      // setTimeout(enableArrow, 1600);
     } else if (strollers.children[1].classList.contains("active")) {
+      // disableArrow(rightArrow);
       setState({ isActive1: true, isActive2: false });
-      slideImgLeft(1, 0, 36, 38, 22, 10, 1.6);
+      slideImgLeft(1, 0, 36, 38, 65, 10, 1.6);
       slideSubLeft(1, 0, 26, "", 37, 1.6);
       greyToBlue(1.6);
       harveyToBuggy();
+      // setTimeout(enableArrow, 1600);
     }
   };
 
   const previousSlide = () => {
     if (strollers.children[0].classList.contains("active")) {
       setState({ isActive1: false, isActive2: true });
-      slideImgRight(0, 1, 38, 36, 22, 10, 1.6);
+      slideImgRight(0, 1, 38, 36, 65, 10, 1.6);
       slideSubRight(0, 1, 37, 49, 26, 1.6);
       blueToGrey(1.6);
       buggyToHarvey();
     } else if (strollers.children[1].classList.contains("active")) {
       setState({ isActive1: true, isActive2: false });
-      slideImgRight(1, 0, 36, 38, 22, 10, 1.6);
-      slideSubRight(1, 0, 26, '', 37, 1.6);
+      slideImgRight(1, 0, 36, 38, 65, 10, 1.6);
+      slideSubRight(1, 0, 26, "", 37, 1.6);
       greyToBlue(1.6);
       harveyToBuggy();
     }
@@ -181,8 +193,12 @@ function App() {
   return (
     <div className="App">
       <div ref={el => (container = el)} className="slider-container">
-        <div onClick={previousSlide} className="arrows left">
-          <img src={leftArrow} alt="left arrow" />
+        <div
+          ref={el => (leftArrow = el)}
+          onClick={previousSlide}
+          className="arrows left"
+        >
+          <img src={leftArrowImg} alt="left arrow" />
         </div>
 
         <div className="inner">
@@ -228,8 +244,12 @@ function App() {
           </div>
         </div>
 
-        <div onClick={nextSlide} className="arrows right">
-          <img src={rightArrow} alt="right arrow" />
+        <div
+          ref={el => (rightArrow = el)}
+          onClick={nextSlide}
+          className="arrows right"
+        >
+          <img src={rightArrowImg} alt="right arrow" />
         </div>
       </div>
     </div>
