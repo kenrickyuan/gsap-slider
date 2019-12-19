@@ -34,87 +34,89 @@ function App() {
   }, []);
 
   // Stroller Image transition
-  // Input left stroller's index, right stroller's index, animation duration
+  // Input starting stroller's index, ending stroller's index, starting stroller's left, ending stroller's left, starting rotation, ending rotation, duration
   const slideImgLeft = (
-    leftIndex,
-    rightIndex,
-    destination,
+    startIndex,
+    endIndex,
+    startLeft,
+    endLeft,
     startRotation,
     endRotation,
     duration
   ) => {
-    TweenLite.set(strollers.children[rightIndex], {
-      css: { left: `${100 + destination}vw`, rotation: startRotation }
+    TweenLite.set(strollers.children[endIndex], {
+      css: { left: `${100 + endLeft}vw`, rotation: startRotation }
     });
-    TweenLite.to(strollers.children[rightIndex], duration, {
-      css: { left: `${destination}vw`, rotation: endRotation },
+    TweenLite.to(strollers.children[endIndex], duration, {
+      css: { left: `${endLeft}vw`, rotation: endRotation },
       ease: Power3.easeInOut
     });
-    TweenLite.to(strollers.children[leftIndex], duration, {
-      css: { left: `${-100 - destination}vw`, rotation: startRotation + 22 },
+    TweenLite.to(strollers.children[startIndex], duration, {
+      css: { left: `${-100 - startLeft}vw`, rotation: startRotation + 22 },
       ease: Power3.easeInOut
     });
   };
 
   const slideImgRight = (
-    leftIndex,
-    rightIndex,
-    destination,
+    startIndex,
+    endIndex,
+    startLeft,
+    endLeft,
     startRotation,
     endRotation,
     duration
   ) => {
-    TweenLite.set(strollers.children[leftIndex], {
-      css: { left: `${-100 - destination}vw`, rotation: startRotation + 22 }
+    TweenLite.set(strollers.children[endIndex], {
+      css: { left: `${-100 - endLeft}vw`, rotation: startRotation + 22 }
     });
-    TweenLite.to(strollers.children[leftIndex], duration, {
-      css: { left: `${destination}vw`, rotation: endRotation },
+    TweenLite.to(strollers.children[endIndex], duration, {
+      css: { left: `${endLeft}vw`, rotation: endRotation },
       ease: Power3.easeInOut
     });
-    TweenLite.to(strollers.children[rightIndex], duration, {
-      css: { left: `${100 + destination}vw`, rotation: startRotation },
+    TweenLite.to(strollers.children[startIndex], duration, {
+      css: { left: `${100 + startLeft}vw`, rotation: startRotation },
       ease: Power3.easeInOut
     });
   };
 
   // Subtitle transition
   const slideSubLeft = (
-    leftIndex,
-    rightIndex,
+    startIndex,
+    endIndex,
     newLeft,
     newTop,
     currentLeft,
     duration
   ) => {
-    TweenLite.set(subtitles.children[rightIndex], {
+    TweenLite.set(subtitles.children[endIndex], {
       css: { left: `${100 + newLeft}vw`, top: `${newTop}vh` }
     });
-    TweenLite.to(subtitles.children[rightIndex], duration, {
+    TweenLite.to(subtitles.children[endIndex], duration, {
       css: { left: `${newLeft}vw` },
       ease: Power3.easeInOut
     });
-    TweenLite.to(subtitles.children[leftIndex], duration, {
+    TweenLite.to(subtitles.children[startIndex], duration, {
       css: { left: `${-100 - currentLeft}vw` },
       ease: Power3.easeInOut
     });
   };
 
   const slideSubRight = (
-    leftIndex,
-    rightIndex,
+    startIndex,
+    endIndex,
     newLeft,
     newTop,
     currentLeft,
     duration
   ) => {
-    TweenLite.set(subtitles.children[leftIndex], {
+    TweenLite.set(subtitles.children[endIndex], {
       css: { left: `${-100 - newLeft}vw`, top: `${newTop}vh` }
     });
-    TweenLite.to(subtitles.children[leftIndex], duration, {
+    TweenLite.to(subtitles.children[endIndex], duration, {
       css: { left: `${newLeft}vw` },
       ease: Power3.easeInOut
     });
-    TweenLite.to(subtitles.children[rightIndex], duration, {
+    TweenLite.to(subtitles.children[startIndex], duration, {
       css: { left: `${100 + currentLeft}vw` },
       ease: Power3.easeInOut
     });
@@ -147,13 +149,13 @@ function App() {
   const nextSlide = () => {
     if (strollers.children[0].classList.contains("active")) {
       setState({ isActive1: false, isActive2: true });
-      slideImgLeft(0, 1, 38, 22, 10, 1.6);
+      slideImgLeft(0, 1, 38, 36, 22, 10, 1.6);
       slideSubLeft(0, 1, 37, 49, 26, 1.6);
       blueToGrey(1.6);
       buggyToHarvey();
     } else if (strollers.children[1].classList.contains("active")) {
       setState({ isActive1: true, isActive2: false });
-      slideImgLeft(1, 0, 36, 22, 10, 1.6);
+      slideImgLeft(1, 0, 36, 38, 22, 10, 1.6);
       slideSubLeft(1, 0, 26, "", 37, 1.6);
       greyToBlue(1.6);
       harveyToBuggy();
@@ -163,14 +165,14 @@ function App() {
   const previousSlide = () => {
     if (strollers.children[0].classList.contains("active")) {
       setState({ isActive1: false, isActive2: true });
-      slideImgRight(1, 0, 38, 22, 10, 1.6);
-      slideSubRight(1, 0, 37, 49, 26, 1.6);
+      slideImgRight(0, 1, 38, 36, 22, 10, 1.6);
+      slideSubRight(0, 1, 37, 49, 26, 1.6);
       blueToGrey(1.6);
       buggyToHarvey();
     } else if (strollers.children[1].classList.contains("active")) {
       setState({ isActive1: true, isActive2: false });
-      slideImgRight(0, 1, 36, 22, 10, 1.6);
-      slideSubRight(0, 1, 26, '', 37, 1.6);
+      slideImgRight(1, 0, 36, 38, 22, 10, 1.6);
+      slideSubRight(1, 0, 26, '', 37, 1.6);
       greyToBlue(1.6);
       harveyToBuggy();
     }
