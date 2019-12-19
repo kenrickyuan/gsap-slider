@@ -3,6 +3,9 @@ import { TweenLite, Power3 } from "gsap";
 
 import arrowImg from "../../assets/arrow.svg";
 import { sliderData } from "./SliderData";
+import CSSPlugin from "gsap";
+
+const C = CSSPlugin; // need to reference this for the build to use TweenLite
 
 const details = sliderData;
 
