@@ -75,10 +75,24 @@ $circle-gray: #706971;
   }
 }
 
+.shape-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+}
+
 .shape {
-  width: 46vw;
-  height: 46vw;
-  background-color: rgb(175, 203, 209);
+  width: 44vw;
+  height: 44vw;
+  background-color: $circle-blue;
+  border-radius: 0%;
+  position: relative;
+  left: 14vw;
+  top: -1vw;
 }
 
 .stroller-subtitle {

@@ -1,7 +1,6 @@
 import React, { useRef, useState } from "react";
-import { TweenLite, Power3 } from "gsap";
-import leftArrowImg from "./assets/arrow-forward.svg";
-import rightArrowImg from "./assets/arrow-forward.svg";
+import { TweenLite, Power3, Power0 } from "gsap";
+import arrowImg from "./assets/arrow.svg";
 import "./App.scss";
 import "reset-css";
 
@@ -10,13 +9,15 @@ const details = [
     name: "Buggy XS",
     subtitle: "Compact on the go",
     image: `${require("./assets/buggyxs.png")}`,
-    color: "#95b1b9"
+    bgColor: "#95b1b9",
+    shapeColor: "#b4cad0"
   },
   {
     name: "Harvey²",
     subtitle: "All Terrain",
     image: `${require("./assets/harvey2.png")}`,
-    color: "#958f96"
+    bgColor: "#958f96",
+    shapeColor: "#706971"
   }
 ];
 
@@ -25,6 +26,7 @@ function App() {
   let container = useRef(null);
   let subtitles = useRef(null);
   let heading = useRef(null);
+  let shape = useRef(null);
   let leftArrow = useRef(null);
   let rightArrow = useRef(null);
 
@@ -130,6 +132,14 @@ function App() {
     });
   };
 
+  // Shape transition
+  const shapeChange = (targetBorderRadius, targetRotation, duration) => {
+    TweenLite.to(shape, duration, {
+      css: { "border-radius": targetBorderRadius, rotation: `+= ${targetRotation}`},
+      ease: Power3.easeInOut
+    });
+  };
+
   // Heading Changing transition (for testing purposes)
   const headingChange = targetHeading => {
     heading.innerHTML = targetHeading;
@@ -151,16 +161,18 @@ function App() {
       setState({ isActive1: false, isActive2: true });
       slideImgLeft(0, 1, 38, 36, 65, 10, 1.6);
       slideSubLeft(0, 1, 37, 49, 26, 1.6);
-      colorChange(details[1].color, 1.6);
+      colorChange(details[1].bgColor, 1.6);
       headingChange(details[1].name);
+      shapeChange("50%", -90, 1.6);
       // setTimeout(enableArrow, 1600);
     } else if (strollers.children[1].classList.contains("active")) {
       // disableArrow(rightArrow);
       setState({ isActive1: true, isActive2: false });
       slideImgLeft(1, 0, 36, 38, 65, 10, 1.6);
       slideSubLeft(1, 0, 26, "", 37, 1.6);
-      colorChange(details[0].color, 1.6);
+      colorChange(details[0].bgColor, 1.6);
       headingChange(details[0].name);
+      shapeChange("0%", -90, 1.6);
       // setTimeout(enableArrow, 1600);
     }
   };
@@ -170,13 +182,13 @@ function App() {
       setState({ isActive1: false, isActive2: true });
       slideImgRight(0, 1, 38, 36, 65, 10, 1.6);
       slideSubRight(0, 1, 37, 49, 26, 1.6);
-      colorChange(details[1].color, 1.6);
+      colorChange(details[1].bgColor, 1.6);
       headingChange(details[1].name);
     } else if (strollers.children[1].classList.contains("active")) {
       setState({ isActive1: true, isActive2: false });
       slideImgRight(1, 0, 36, 38, 65, 10, 1.6);
       slideSubRight(1, 0, 26, "", 37, 1.6);
-      colorChange(details[0].color, 1.6);
+      colorChange(details[0].bgColor, 1.6);
       headingChange(details[0].name);
     }
   };
@@ -189,12 +201,12 @@ function App() {
           onClick={previousSlide}
           className="arrows left"
         >
-          <img src={leftArrowImg} alt="left arrow" />
+          <img src={arrowImg} alt="left arrow" />
         </div>
 
         <div className="inner">
           <div className="shape-container">
-            <span className="shape"></span>
+            <span ref={el => (shape = el)} className="shape"></span>
           </div>
           <div className="stroller-name-container">
             <div className="stroller-name">
@@ -228,7 +240,11 @@ function App() {
               alt={details[0].name}
             />
             <img
-              className={state.isActive2 ? "stroller stroller2 active" : "stroller stroller2"}
+              className={
+                state.isActive2
+                  ? "stroller stroller2 active"
+                  : "stroller stroller2"
+              }
               src={details[1].image}
               alt={details[1].name}
             />
@@ -240,7 +256,7 @@ function App() {
           onClick={nextSlide}
           className="arrows right"
         >
-          <img src={rightArrowImg} alt="right arrow" />
+          <img src={arrowImg} alt="right arrow" />
         </div>
       </div>
     </div>
