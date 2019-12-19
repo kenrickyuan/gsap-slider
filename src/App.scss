@@ -116,7 +116,6 @@ $circle-gray: #706971;
 }
 
 .strollers {
-  /*height: 100vh;*/
   display: flex;
   align-items: center;
   z-index: 5;
@@ -130,8 +129,4 @@ $circle-gray: #706971;
   &.stroller2 {
     left: 138vw;
   }
-}
-
-.disabled {
-  pointer-events: none;
 }
