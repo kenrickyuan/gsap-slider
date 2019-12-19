@@ -25,6 +25,7 @@ $circle-gray: #706971;
   height: 100vh;
   position: relative;
   overflow: hidden;
+  display: flex;
 }
 
 .arrows {
@@ -48,14 +49,11 @@ $circle-gray: #706971;
   }
 }
 
-.inner {
+.stroller-details-container {
   display: flex;
-  .stroller-name-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100vw;
-  }
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
 }
 
 .stroller-name {
@@ -98,7 +96,7 @@ $circle-gray: #706971;
 .stroller-subtitle {
   z-index: 2;
   position: absolute;
-  left: 26vw;
+  left: 28vw;
   margin-top: 4vh;
   width: 100%;
   font-family: Circular;

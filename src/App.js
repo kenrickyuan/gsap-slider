@@ -164,7 +164,7 @@ function App() {
       // disableArrow(rightArrow);
       setState({ isActive1: false, isActive2: true });
       slideImgLeft(0, 1, 38, 36, 65, 10, 1.6);
-      slideSubLeft(0, 1, 37, 49, 26, 1.6);
+      slideSubLeft(0, 1, 37, 49, 28, 1.6);
       colorChange(details[1].bgColor, 1.6);
       headingChange(details[1].name);
       shapeChange(details[1].shapeColor, details[1].shapeWidth, details[1].shapeHeight, "50%", -90, 1.6);
@@ -173,7 +173,7 @@ function App() {
       // disableArrow(rightArrow);
       setState({ isActive1: true, isActive2: false });
       slideImgLeft(1, 0, 36, 38, 65, 10, 1.6);
-      slideSubLeft(1, 0, 26, "", 37, 1.6);
+      slideSubLeft(1, 0, 28, "", 37, 1.6);
       colorChange(details[0].bgColor, 1.6);
       headingChange(details[0].name);
       shapeChange(details[0].shapeColor, details[0].shapeWidth, details[0].shapeHeight, "0%", -90, 1.6);
@@ -185,14 +185,14 @@ function App() {
     if (strollers.children[0].classList.contains("active")) {
       setState({ isActive1: false, isActive2: true });
       slideImgRight(0, 1, 38, 36, 65, 10, 1.6);
-      slideSubRight(0, 1, 37, 49, 26, 1.6);
+      slideSubRight(0, 1, 37, 49, 28, 1.6);
       colorChange(details[1].bgColor, 1.6);
       headingChange(details[1].name);
       shapeChange(details[1].shapeColor, details[1].shapeWidth, details[1].shapeHeight, "50%", 90, 1.6);
     } else if (strollers.children[1].classList.contains("active")) {
       setState({ isActive1: true, isActive2: false });
       slideImgRight(1, 0, 36, 38, 65, 10, 1.6);
-      slideSubRight(1, 0, 26, "", 37, 1.6);
+      slideSubRight(1, 0, 28, "", 37, 1.6);
       colorChange(details[0].bgColor, 1.6);
       headingChange(details[0].name);
       shapeChange(details[0].shapeColor, details[0].shapeWidth, details[0].shapeHeight, "0%", 90, 1.6);
@@ -210,11 +210,11 @@ function App() {
           <img src={arrowImg} alt="left arrow" />
         </div>
 
-        <div className="inner">
+
           <div className="shape-container">
             <span ref={el => (shape = el)} className="shape"></span>
           </div>
-          <div className="stroller-name-container">
+          <div className="stroller-details-container">
             <div className="stroller-name">
               <h1 ref={el => (heading = el)}>{details[0].name}</h1>
               <div ref={el => (subtitles = el)} className="subtitles">
@@ -238,7 +238,7 @@ function App() {
                 </p>
               </div>
             </div>
-          </div>
+
           <div ref={el => (strollers = el)} className="strollers">
             <img
               className={state.isActive1 ? "stroller active" : "stroller"}
