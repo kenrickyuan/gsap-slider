@@ -6,7 +6,7 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
-    "gsap": "^3.0.4",
+    "gsap": "^3.6.0",
     "netlify-cli": "^2.25.0",
     "node-sass": "^4.13.0",
     "react": "^16.12.0",
